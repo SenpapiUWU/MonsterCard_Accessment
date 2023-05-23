@@ -18,14 +18,7 @@ while True:
     choice = easygui.buttonbox("Options", "Config Menu", ("Add", "Remove", "Search", "Storage", "Exit"))
 
     if choice == "Add":
-        #  create an interface for user to enter the name and stats of the new card
-        new_creature = easygui.enterbox("Enter the name and stats of the new card,"
-                                        " separated by commas in order (e.g. 'Name, Str, Spe, Ste, Cun'):")
-
-        # add the new card info from user to the list
-        new_creature = new_creature.split(",")
-        new_creature[1:] = [int(stat) for stat in new_creature[1:]]
-        creatures.append(new_creature)
+        pass
         # allow user to remove the card from storage
     elif choice == "Remove":
         pass

@@ -31,6 +31,8 @@ while True:
         pass
 
     elif choice == "Remove":
+        # create an interface for user to enter the name of the card they want to remove
+        card_name = easygui.enterbox("Enter the name of the card you want to remove:")
         # Add code for Remove option
         pass
 
