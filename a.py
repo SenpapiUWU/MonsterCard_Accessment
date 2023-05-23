@@ -13,6 +13,7 @@ creatures = {
     "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 }
 
+# make the code keep going if there is no issue
 while True:
     message = "Creature\t\tStrength\tSpeed\tStealth\tCunning\n\n\n"
 
@@ -25,19 +26,20 @@ while True:
     easygui.msgbox(msg=message, title="Card Stats")
 
     choice = easygui.buttonbox("Option", "Config Menu", ("Add", "Remove", "Storage", "Exit"))
-
+    # create storage choice
     if choice == "Storage":
-        # Add code for Storage option
         pass
-
+    # create Remove choice
     elif choice == "Remove":
-        # create an interface for user to enter the name of the card they want to remove
         card_name = easygui.enterbox("Enter the name of the card you want to remove:")
         pass
-
+# create Add interface
     elif choice == "Add":
-        new_card = easygui.enterbox("Enter the name and stats of the new card")
-        pass
-
+        # add different section for each info
+        card_name = easygui.enterbox("Enter the name of the new card:")
+        strength = easygui.enterbox("Enter the strength value:")
+        speed = easygui.enterbox("Enter the speed value:")
+        stealth = easygui.enterbox("Enter the stealth value:")
+        cunning = easygui.enterbox("Enter the cunning value:")
     else:
         break

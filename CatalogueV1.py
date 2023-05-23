@@ -1,24 +1,27 @@
 import easygui
 
 # list of the card name
-creatures = [
-    ["Stoneling", 7, 1, 25, 15],
-    ["Vexscream", 1, 6, 21, 19],
-    ["Dawnmiraj", 5, 15, 18, 22],
-    ["Blazegolm", 15, 20, 23, 6],
-    ["Websnake", 7, 15, 10, 5],
-    ["Moldvine", 21, 18, 14, 5],
-    ["Vortexwing", 19, 13, 19, 2],
-    ["Rotthing", 16, 7, 4, 12],
-    ["Froststep", 14, 14, 17, 4],
-    ["Wispghoul", 17, 19, 3, 2]
-]
-# create message as an empty string
-message = "Creature\t\tStrength\tSpeed\tStealth\tCunning\n\n\n"
+creatures = {
+    "Stoneling": {"Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
+    "Vexscream": {"Strength": 1, "Speed": 6, "Stealth": 21, "Cunning": 19},
+    "Dawnmiraj": {"Strength": 5, "Speed": 15, "Stealth": 18, "Cunning": 22},
+    "Blazegolm": {"Strength": 15, "Speed": 20, "Stealth": 23, "Cunning": 6},
+    "Websnake": {"Strength": 7, "Speed": 15, "Stealth": 10, "Cunning": 5},
+    "Moldvine": {"Strength": 21, "Speed": 18, "Stealth": 14, "Cunning": 5},
+    "Vortexwing": {"Strength": 19, "Speed": 13, "Stealth": 19, "Cunning": 2},
+    "Rotthing": {"Strength": 16, "Speed": 7, "Stealth": 4, "Cunning": 12},
+    "Froststep": {"Strength": 14, "Speed": 14, "Stealth": 17, "Cunning": 4},
+    "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
+}
+
+# make the rows for each category
+message = "Creature\tStrength\tSpeed\tStealth\tCunning\n\n"
 
 # loop through the creatures dictionary and append each creature's stats to the message string
-for creature in creatures:
-    message += f"{creature[0]}: {creature[1]}\t{creature[2]}\t{creature[3]}\t{creature[4]}\n\n"
+for creature, stats in creatures.items():
+    message += f"\n{creature}"
+    for stat, value in stats.items():
+        message += f"\t{value}"
 
 # output the message using a message box in easygui
-easygui.msgbox(msg=message, title="Catalogue")
+easygui.msgbox(msg=message, title="Creature Stats")
