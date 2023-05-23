@@ -19,56 +19,50 @@ while True:
     choice = easygui.buttonbox("Options", "Config Menu", ("Add", "Remove", "Search", "Storage", "Exit"))
 
     if choice == "Add":
-        card_name = easygui.enterbox("Enter the card name:")
-        if card_name:
-            strength = easygui.enterbox("\t\tEnter the strength value: "
-                                        "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            speed = easygui.enterbox("Enter the speed value:"
-                                     "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            stealth = easygui.enterbox("Enter the stealth value:"
-                                       "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            cunning = easygui.enterbox("Enter the cunning value:"
-                                       "\nValue must be higher or equal to than 0 and lower or equal to 25")
+        # create an interface for user to enter the name and stats of the new card
+        while True:
+            new_creature = easygui.enterbox("Enter the name and stats of the new card, separated by commas in order "
+                                            "(e.g. 'Name, Str, Spe, Ste, Cun'):")
 
-            if strength and speed and stealth and cunning:
-                try:
-                    strength = int(strength)
-                    speed = int(speed)
-                    stealth = int(stealth)
-                    cunning = int(cunning)
+            if new_creature is None:
+                # user clicked cancel, return to main menu
+                break
 
-                    if 0 <= strength <= 25 and 0 <= speed <= 25 and 0 <= stealth <= 25 and 0 <= cunning <= 25:
-                        creatures.append([card_name, strength, speed, stealth, cunning])
-                        easygui.msgbox(f"Added {card_name} to the card list")
-                    else:
-                        easygui.msgbox("Invalid Stats: Stats must be integers between 0 and 25")
-                except ValueError:
-                    easygui.msgbox("Invalid Stats: Stats must be integers")
+            # split the input string into name and stats
+            name_and_stats = new_creature.split(",")
+            if len(name_and_stats) < 5:  # check if user provided all 5 stats
+                easygui.msgbox("Please enter ALL stats")
+            elif len(name_and_stats) > 5:  # check if user provided 5 stats
+                easygui.msgbox("Please enter ONLY 5 stats")
             else:
-                easygui.msgbox("Invalid input: Please enter valid stats.")
-        elif choice == "cancel":
-            continue
+                name, str_, spe, ste, cun = [s.strip() for s in name_and_stats]  # unpack the stats
+                # validate the stats
+                try:
+                    str_, spe, ste, cun = map(int, (str_, spe, ste, cun))
+                    if not all(0 <= stat <= 25 for stat in (str_, spe, ste, cun)):
+                        easygui.msgbox("Invalid Stats: Stats must be integers between 0 and 25")
+                    else:
+                        # add the new creature to the list
+                        creatures.append([name, str_, spe, ste, cun])
+                        easygui.msgbox(f"Added {name} to the card list!")
+                        break
+                except ValueError:
+                    easygui.msgbox("Invalid Stats: Stats must be integers between 0 and 25")
 
     elif choice == "Remove":
-        # create an interface for the user to enter the name of the card they want to remove
+        # create an interface for user to enter the name of the card they want to remove
         card_name = easygui.enterbox("Enter the name of the card you want to remove:")
-        if card_name is None:
-            continue
-        elif card_name not in [creature[0] for creature in creatures]:
-            easygui.msgbox("The card doesn't exist.")
-        else:
-            confirmation = easygui.buttonbox(f"Are you sure you want to remove {card_name}?", "Confirmation",
-                                             ("Yes", "No"))
-            if confirmation == "Yes":
-                # find the card in the list and remove it
-                for creature in creatures:
 
-                    if creature[0] == card_name:
-                        creatures.remove(creature)
-                        break
-                easygui.msgbox(f"Successfully removed {card_name} from the card list.")
-            else:
-                easygui.msgbox("Card removal canceled.")
+        if card_name is None:
+            easygui.msgbox("Invalid Card name")
+        elif card_name not in creatures:
+            easygui.msgbox(f"Succesfully removed {card_name} from the crad list!")
+
+        # find the card in the list and remove it
+        for creature in creatures:
+            if creature[0] == card_name:
+                creatures.remove(creature)
+                break
     elif choice == "Storage":
         pass
 
@@ -96,5 +90,6 @@ while True:
 
         # output the message using a message box in easygui
         easygui.msgbox(msg=message, title=f"Cards Sorted by {stat_choice}")
+
     else:
         break
