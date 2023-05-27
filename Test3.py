@@ -16,18 +16,18 @@ while True:
     easygui.msgbox(msg=message, title="Card Stats")
 
     # display a button box with options to add, remove, search, or exit
-    choice = easygui.buttonbox("Options", "Config Menu", ("Add", "Remove", "Search", "Storage", "Exit"))
+    choice = easygui.buttonbox("Options", "Config Menu", ("Add", "Remove", "Search", "Storage", "Edit", "Exit"))
 
     if choice == "Add":
         card_name = easygui.enterbox("Enter the card name:")
         if card_name:
             strength = easygui.enterbox("\t\tEnter the strength value: "
                                         "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            speed = easygui.enterbox("Enter the speed value:"
+            speed = easygui.enterbox("\t\tEnter the speed value:"
                                      "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            stealth = easygui.enterbox("Enter the stealth value:"
+            stealth = easygui.enterbox("\t\tEnter the stealth value:"
                                        "\nValue must be higher or equal to than 0 and lower or equal to 25")
-            cunning = easygui.enterbox("Enter the cunning value:"
+            cunning = easygui.enterbox("\t\tEnter the cunning value:"
                                        "\nValue must be higher or equal to than 0 and lower or equal to 25")
 
             if strength and speed and stealth and cunning:
@@ -73,9 +73,60 @@ while True:
 
     elif choice == "Storage":
         pass
-        if choice == "Search":
+    elif choice == "Edit":
+        # create a list of creature names for the choice box
+        creature_names = [creature[0] for creature in creatures]
 
-    # display a choice box with options to search by strength, speed, stealth, or cunning
+        # display a choice box with the creature names
+        selected_creature = easygui.choicebox("Select a creature to edit:", "Edit Creature", creature_names)
+
+        if selected_creature is None:
+            easygui.msgbox("No creature selected")
+        else:
+            # find the selected creature in the list
+            found_creature = None
+            for creature in creatures:
+                if creature[0] == selected_creature:
+                    found_creature = creature
+                    break
+
+            if found_creature is None:
+                easygui.msgbox(f"Creature '{selected_creature}' not found in the creature list!")
+            else:
+                # create an interface for the user to enter the new stats for the creature
+                card_name = selected_creature
+                strength = easygui.enterbox(f"\tEnter the new strength value for '{card_name}':"
+                                            "\nValue must be higher or equal to than 0 and lower or equal to 25",
+                                            default=str(found_creature[1]))
+                speed = easygui.enterbox(f"\tEnter the new speed value for '{card_name}':"
+                                         "\nValue must be higher or equal to than 0 and lower or equal to 25",
+                                         default=str(found_creature[2]))
+                stealth = easygui.enterbox(f"\tEnter the new stealth value for '{card_name}':"
+                                           "\nValue must be higher or equal to than 0 and lower or equal to 25",
+                                           default=str(found_creature[3]))
+                cunning = easygui.enterbox(f"\tEnter the new cunning value for '{card_name}':"
+                                           "\nValue must be higher or equal to than 0 and lower or equal to 25",
+                                           default=str(found_creature[4]))
+
+                if strength is None or speed is None or stealth is None or cunning is None:
+                    easygui.msgbox("Invalid input: Please enter valid stats.")
+                else:
+                    try:
+                        strength = int(strength)
+                        speed = int(speed)
+                        stealth = int(stealth)
+                        cunning = int(cunning)
+
+                        if 0 <= strength <= 25 and 0 <= speed <= 25 and 0 <= stealth <= 25 and 0 <= cunning <= 25:
+                            found_creature[1:] = [strength, speed, stealth, cunning]
+                            easygui.msgbox(f"Updated stats for {card_name}!")
+                        else:
+                            easygui.msgbox("Invalid Stats: Stats must be integers between 0 and 25")
+                    except ValueError:
+                        easygui.msgbox("Invalid Stats: Stats must be integers")
+    elif choice == "Search":
+
+        # display a choice box with options to search by strength, speed, stealth, or cunning
 
         stat_choice = easygui.buttonbox("Please select search options", "Search Options",
                                         ["Sort by stats", "Search by name", "Cancel"])
