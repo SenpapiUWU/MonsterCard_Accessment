@@ -1,4 +1,3 @@
-import easygui
 
 
 creatures = [

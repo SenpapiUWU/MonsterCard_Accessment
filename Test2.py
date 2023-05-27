@@ -56,7 +56,7 @@ while True:
         if card_name is None:
             easygui.msgbox("Invalid Card name")
         elif card_name not in creatures:
-            easygui.msgbox(f"Succesfully removed {card_name} from the crad list!")
+            easygui.msgbox(f"Successfully removed {card_name} from the card list!")
 
         # find the card in the list and remove it
         for creature in creatures:
