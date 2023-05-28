@@ -43,3 +43,4 @@ def remove_card():
 
 display_card_stats()
 remove_card()
+display_card_stats()
