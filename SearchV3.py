@@ -61,9 +61,18 @@ def search_card():
             message += "\n\n"
 
             # output the message using a message box in easygui
-            easygui.msgbox(msg=message, title="Sorted Card Stats")
+        easygui.msgbox(msg=message, title="Sorted Card Stats")
 
 
-display_card_stats()
-search_card()
-display_card_stats()
+while True:
+    # display a choice box with the available options
+    choice = easygui.buttonbox("Options", "Configuration Menu",
+                               ("Storage", "Add", "Remove", "Edit", "Search", "Exit"))
+
+    # execute the corresponding function based on the user's choice
+    if choice == "Storage":
+        display_card_stats()
+    elif choice == "Search":
+        search_card()
+    elif choice == "Exit":
+        break

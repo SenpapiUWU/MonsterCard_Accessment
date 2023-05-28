@@ -40,7 +40,15 @@ def remove_card():
         else:
             easygui.msgbox("Card removal canceled.")
 
+while True:
+    # display a choice box with the available options
+    choice = easygui.buttonbox("Options", "Configuration Menu",
+                               ("Storage", "Add", "Remove", "Edit", "Search", "Exit"))
 
-display_card_stats()
-remove_card()
-display_card_stats()
+    # execute the corresponding function based on the user's choice
+    if choice == "Storage":
+        display_card_stats()
+    elif choice == "Remove":
+        remove_card()
+    elif choice == "Exit":
+        break

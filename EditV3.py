@@ -95,6 +95,16 @@ def edit_card():
                     easygui.msgbox("Invalid Stats: Stats must be integers")
 
 
-display_card_stats()
-edit_card()
-display_card_stats()
+while True:
+    # display a choice box with the available options
+    choice = easygui.buttonbox("Options", "Configuration Menu",
+                               ("Storage", "Add", "Remove", "Edit", "Search", "Exit"))
+
+    # execute the corresponding function based on the user's choice
+    if choice == "Storage":
+        display_card_stats()
+    elif choice == "Edit":
+        edit_card()
+    elif choice == "Exit":
+        break
+
