@@ -177,7 +177,3 @@ while True:
     else:
         break
 
-
-
-#
-

@@ -152,7 +152,7 @@ def edit_card():
             if cunning is None:
                 easygui.msgbox("Editing canceled for creature: " + card_name)
                 return  # Return or perform necessary actions for cancel scenario
-
+            # check if user input all stats correctly
             if strength is None or speed is None or stealth is None or cunning is None:
                 easygui.msgbox("Invalid input: Please enter valid stats.")
             else:
@@ -161,7 +161,7 @@ def edit_card():
                     speed = int(speed)
                     stealth = int(stealth)
                     cunning = int(cunning)
-
+                    # make sure the input is an integer between 0-25
                     if 0 <= strength <= 25 and 0 <= speed <= 25 and 0 <= stealth <= 25 and 0 <= cunning <= 25:
                         found_creature[1:] = [strength, speed, stealth, cunning]
                         easygui.msgbox(f"Updated stats for {card_name}!")
