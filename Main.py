@@ -203,7 +203,7 @@ def search_card():
         stat_index = ["Strength", "Speed", "Stealth", "Cunning"].index(stat_sort_choice)
 
         # sort the creatures list based on the selected stat
-        sorted_creatures = sorted(creatures, key=lambda x: x[stat_index + 1])
+        sorted_creatures = sorted(creatures, key=lambda x: x[stat_index + 1], reverse=True)
 
         message = "Card name:\tStrength\tSpeed\tStealth\tCunning\n\n\n"
 
